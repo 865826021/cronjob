@@ -1,11 +1,13 @@
 cronjob
 =======
 提供任务队列和计划任务功能
-=======
+
 环境要求：
-cron服务，支持php的web环境，mysql服务
 =======
+cron服务，支持php的web环境，mysql服务
+
 安装说明：
+=======
 1）安装配置curl和php5-curl。
 2）复制cronjob文件夹到固定路径。
 3）配置web服务器和mysql服务器，导入程序文件，数据文件。
