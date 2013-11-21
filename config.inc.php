@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @计划任务队列系统配置文件
+ * @author: Ghostry <ghostry@ghostry.cn>
+ * @time: 2013/11
+ * @Copyright: blog.ghostry.cn
+ */
+//可编辑
+$mysql_db_config['server'] = 'localhost';
+$mysql_db_config['username'] = 'mysql用户名';
+$mysql_db_config['password'] = '密码';
+$mysql_db_config['database_name'] = 'cronjob';
+$mysql_db_config['charset'] = 'utf8';
+//任务最大重试次数范围1-99
+define('ExecutionNum', 1);
+//日志目录
+define('LogsDir', 'logs');
+
+//可编辑结束
+
+
+
+
+
+require 'class/medoo.php';
+$database = new medoo($mysql_db_config);
+require 'class/function.php';
+require 'class/Services_JSON.class.php';
+$Services_JSON = new Services_JSON();

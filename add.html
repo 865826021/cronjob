@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<title>队列或计划任务添加范例</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+	<form action="./?act=add" method="POST">
+	    要请求的网址 :<input type="text" name="url" value="http://">*<br>
+	    请求方式 :<input type="text" name="method" value="GET"><br>
+	    计划执行时间 :<input type="text" name="runtime"><br>
+	    请求参数1 :<input type="text" name="pass"><br>
+	    请求参数2 :<input type="text" name="cc"><br>
+	    请求参数3 :<input type="text" name="b"><br>
+	    。。。
+	    <br>
+	    <button type="submit">提交</button>
+	</form>
+	<p>
+	    请求网址必填，如需携带参数，不要写进网址里边。<br>
+	    如果未设置请求方式，则为get方式。使用POST需明确支出<br>
+	    如果未设置计划执行时间，则任务进入队列末尾等待执行，否则为计划任务。如多个任务时间相同按添加顺序队列执行,请使用date函数可识别格式<br>
+	    参数数量任意
+	</p>
+    </body>
+</html>
