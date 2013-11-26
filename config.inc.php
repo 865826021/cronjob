@@ -17,12 +17,15 @@ define('ExecutionNum', 1);
 //日志目录
 define('LogsDir', 'logs');
 
+
+
+
+
 //可编辑结束
 
 
-
-
-
+ini_set('date.timezone', 'Asia/Shanghai');
+header('Content-type: text/html; charset=UTF8');
 require 'class/medoo.php';
 $database = new medoo($mysql_db_config);
 require 'class/function.php';
