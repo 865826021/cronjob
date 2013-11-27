@@ -95,3 +95,20 @@ function microtime_float() {
 function makeDir($path) {
     return is_dir($path) or (makeDir(dirname($path)) and @mkdir($path, 0777));
 }
+
+/**
+ * 查询服务状态
+ */
+function runStatus() {
+    $database = $GLOBALS['database'];
+    $arr = $database->select("status", "time", ['id' => 1]);
+    if (!$arr) {
+	$database->insert("status", [
+	    "time" => time()
+	]);
+    }
+    if (time() - $arr[0] <= SleepTime) {
+	return TRUE;
+    }
+    return FALSE;
+}

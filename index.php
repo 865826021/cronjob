@@ -11,7 +11,7 @@ require 'config.inc.php';
 $action = isset($_GET['act']) ? $_GET['act'] : '';
 switch ($action) {
     case 'add':
-//如果是添加
+	//如果是添加
 	$post = $_POST;
 	$url = isset($post['url']) ? trim($post['url']) : exit;
 	if (!preg_match('/^http:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is', $url)) {
@@ -31,8 +31,41 @@ switch ($action) {
 	]);
 	print_r($last_user_id);
 	break;
+    case 'run':
+	//开启程序
+	if (@$_GET['auth'] !== md5(date('YmdH') . RunPass)) {
+	    exit('NoAccess');
+	}
+	if (runStatus()) {
+	    exit('Runing');
+	}
+	ini_set("max_execution_time", 0);
+	while (true) {
+	    $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	    $ch = curl_init();
+	    $curl_opt = array(
+		CURLOPT_URL => $url,
+		CURLOPT_RETURNTRANSFER => 1,
+		CURLOPT_TIMEOUT => 1,
+	    );
+	    curl_setopt_array($ch, $curl_opt);
+	    curl_exec($ch);
+	    curl_close($ch);
+	    //修改状态
+	    $database->update("status", ["time" => time()], ["id" => 1]);
+	    sleep(SleepTime);
+	}
+	break;
+    case 'status':
+	//状态查询
+	if (runStatus()) {
+	    echo 'yes';
+	} else {
+	    echo 'no';
+	}
+	break;
     default:
-//默认是执行
+	//默认是执行
 	//取出数据
 	$arr = $database->select("jobs", "*", [
 	    'runtime[<]' => date('YmdHis'),
@@ -44,7 +77,7 @@ switch ($action) {
 	    exit;
 	}
 	$arr = $arr[0];
-//检查执行状态
+	//检查执行状态
 	if ($arr['status']) {
 	    exit;
 	}
