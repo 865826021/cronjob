@@ -13,8 +13,8 @@ cron服务，支持php的web环境，mysql服务
 - 配置web服务器和mysql服务器，导入程序文件，数据文件。
 - 修改crontab.sh里url地址和执行时间间隔。
 - 复制crontab.sh到固定路径并给予可执行权限。
-- 在文件/etc/crontab添加任务。
-> *  *    * * *   root    路径/crontab.sh
+- 在文件/etc/crontab添加任务。  
+    *  *    * * *   root    路径/crontab.sh
 - 完成。
 
 安装说明2：
